@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rock Paper Scissors</title>
 
   <link rel="stylesheet" href="style.css" />
@@ -14,19 +14,49 @@
     <h1 class="logo">Rock Paper Scissors</h1>
 
     <img
-     src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-ef78-61f7-8272-b0f8968fcf90/raw?se=2025-06-26T15%3A32%3A45Z&sp=r&sv=2024-08-04&sr=b&scid=62afe9c7-3c9a-5227-9feb-680906570909&skoid=732f244e-db13-47c3-bcc7-7ee02a9397bc&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-26T12%3A16%3A05Z&ske=2025-06-27T12%3A16%3A05Z&sks=b&skv=2024-08-04&sig=PQnK0ugRH4L6O17DoE8ruzhz8UWcEuwlm5iwOv8ba7U%3D"
-     alt="Rock Paper Scissors Image"
-     class="rps-image"
+      src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-ef78-61f7-8272-b0f8968fcf90/raw?se=2025-06-26T21%3A01%3A56Z&sp=r&sv=2024-08-04&sr=b&scid=4af6ed59-e1f2-5d7c-9b0a-dd27de640c93&skoid=c953efd6-2ae8-41b4-a6d6-34b1475ac07c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-26T12%3A17%3A17Z&ske=2025-06-27T12%3A17%3A17Z&sks=b&skv=2024-08-04&sig=aD8HFPphd/oOxU6arKwSmNWrr4%2BfLR6aTPxcyq017Gw%3D"
+      alt="Rock Paper Scissors Image"
+      class="rps-image"
     />
-
 
     <div id="score" class="score">You: 0 | Computer: 0</div>
 
-    <button id="start-button">Start Round</button>
+    
+    <div class="buttons">
+      <button class="choice" data-move="Rock">Rock</button>
+      <button class="choice" data-move="Paper">Paper</button>
+      <button class="choice" data-move="Scissors">Scissors</button>
+    </div>
 
     <div id="result" class="result"></div>
   </div>
 
+  
+  <script>
+    let score = { human: 0, comp: 0 };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const resultDiv = document.getElementById("result");
+      const scoreDiv = document.getElementById("score");
+
+      document.querySelectorAll(".choice").forEach(button => {
+        button.addEventListener("click", () => {
+          const input = button.dataset.move;
+          const roundResult = Round(input, score);
+
+          if (!roundResult.valid) {
+            resultDiv.textContent = roundResult.message;
+            return;
+          }
+
+          resultDiv.textContent = `${roundResult.result} You chose ${roundResult.playerChoice}, Computer chose ${roundResult.computerChoice}.`;
+          scoreDiv.textContent = `You: ${roundResult.scores.human} | Computer: ${roundResult.scores.comp}`;
+        });
+      });
+    });
+  </script>
+
+  <!-- Link to your logic file -->
   <script src="generation.js"></script>
 </body>
 </html>
