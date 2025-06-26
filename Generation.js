@@ -42,38 +42,14 @@ function inputchecker(input){
 }
 
 function Winner(humanchoice, compchoice){
-    if (humanchoice===0){
-        if (compchoice===0){
-            return 0 //0 means tie
-        }
-        else if (compchoice===1){
-            return 1 //1 means lose
-        }
-        else{
-            return 2 //2 means win
-        }
+    if (compchoice == humanchoice){
+        return 0 //tie
     }
-    else if (humanchoice ===1){
-        if (compchoice===0){
-            return 2
-        }
-        else if (compchoice ===1){
-            return 0
-        }
-        else {
-            return 1
-        }
+    else if ((humanchoice===0 & compchoice===2) ||(humanchoice===1 & compchoice ===0) ||(humanchoice===2 & compchoice===1)){
+        return 2 //win
     }
     else{
-        if (compchoice===0){
-            return 1
-        }
-        else if (compchoice ===1){
-            return 2
-        }
-        else {
-            return 0
-        }
+        return 1 //loss
     }
 }
 
@@ -117,23 +93,3 @@ function Round(input, score){
 
 }
 
-let score = { human: 0, comp: 0 };
-
-document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("start-button");
-  const resultDiv = document.getElementById("result");
-  const scoreDiv = document.getElementById("score");
-
-  button.addEventListener("click", () => {
-    const input = prompt("Enter your move: Rock, Paper, or Scissors. Write option down as listed");
-    const roundResult = Round(input, score);
-
-    if (!roundResult.valid) {
-      alert(roundResult.message);
-      return;
-    }
-
-    resultDiv.textContent = `${roundResult.result} You chose ${roundResult.playerChoice}, Computer chose ${roundResult.computerChoice}.`;
-    scoreDiv.textContent = `You: ${roundResult.scores.human} | Computer: ${roundResult.scores.comp}`;
-  });
-});
