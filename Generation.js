@@ -1,7 +1,7 @@
 function ComputerGeneration() {
     const min = 0
     const max = 2
-    let gen = Math.floor(Math.random() * (max-min + 1)+ min)
+    let gen = Math.floor(Math.random() * (max-min + 1)+ min) //gen stands for generated number
     return gen
 }
 
@@ -116,3 +116,24 @@ function Round(input, score){
     };
 
 }
+
+let score = { human: 0, comp: 0 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("start-button");
+  const resultDiv = document.getElementById("result");
+  const scoreDiv = document.getElementById("score");
+
+  button.addEventListener("click", () => {
+    const input = prompt("Enter your move: Rock, Paper, or Scissors. Write option down as listed");
+    const roundResult = Round(input, score);
+
+    if (!roundResult.valid) {
+      alert(roundResult.message);
+      return;
+    }
+
+    resultDiv.textContent = `${roundResult.result} You chose ${roundResult.playerChoice}, Computer chose ${roundResult.computerChoice}.`;
+    scoreDiv.textContent = `You: ${roundResult.scores.human} | Computer: ${roundResult.scores.comp}`;
+  });
+});
